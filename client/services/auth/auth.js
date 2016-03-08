@@ -34,6 +34,7 @@ angular.module('dockit')
     };
 
     this.login = function (user) {
+      console.log(user);
       var deferred = $q.defer();
       $http.post('/auth/local', user)
         .then(function (res) {

@@ -10,7 +10,6 @@ angular.module('dockit')
       name: 'SignupCtrl',
 
       signup: function () {
-        console.log('made it to signup');
         Auth.signup(vm.user)
           .then(function () {
             $location.path('/board');

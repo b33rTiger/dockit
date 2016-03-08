@@ -13,15 +13,14 @@ var validateJwt = expressJwt({ secret: config.secrets.session });
  * Otherwise returns 403
  */
 exports.isAuthenticated = function () {
-
+  console.log('auth service server');
   return compose()
-    .use(function (req, res, next) {
-      validateJwt(req, res, next);
-    })
+    .use(validateJwt)
     .use(function (req, res, next) {
       User.findById(req.user._id, function (err, user) {
         if (err) { return next(err); }
-        if (!user) { return res.send(401); }
+        if (!user) { return res.status(401); }
+        // if (!user) { return errorHandler.handle(res, 'Unauthorized', 401); }
         req.user = user;
         next();
       });
