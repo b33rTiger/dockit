@@ -13,7 +13,6 @@ var validateJwt = expressJwt({ secret: config.secrets.session });
  * Otherwise returns 403
  */
 exports.isAuthenticated = function () {
-  console.log('auth service server');
   return compose()
     .use(validateJwt)
     .use(function (req, res, next) {

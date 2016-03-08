@@ -9,20 +9,13 @@ angular.module('dockit')
 
       name: 'LoginCtrl',
 
-      /**
-       * Login method
-       */
       login: function () {
         Auth.login(vm.user)
           .then(function () {
-            if ($scope.returnToPath) {
-              $location.path($scope.returnToPath);
-              $scope.returnToPath = null;
-            } else {
-              $location.path('/board');
-            }
+            $location.path('/board');
           })
           .catch(function (err) {
+            $location.path('/');
             ErrorService.errorToasty(err);
           });
       }

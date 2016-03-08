@@ -5,8 +5,9 @@ angular.module('dockit')
     var service = {};
 
     service.showBoards = function () {
+      console.log('made it to showboards');
       var deferred = $q.defer();
-      $http.get('/api/board')
+      $http.get('/api/boards')
         .success(function (returnedBoards) {
           deferred.resolve(returnedBoards);
         })

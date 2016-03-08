@@ -3,7 +3,7 @@
 angular.module('dockit')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/group', {
+      .when('/board', {
         templateUrl: 'views/board/board.html',
         controller: 'BoardCtrl',
         controllerAs: 'vm'
