@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('dockit')
-  .controller('SignupCtrl', ['$location', 'Auth', function ($location, Auth) {
+  .controller('LoginCtrl', ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
 
     var vm = this;
 
     angular.extend(vm, {
 
-      name: 'SignupCtrl',
+      name: 'LoginCtrl',
 
-      signup: function () {
-        Auth.signup(vm.user)
+      login: function () {
+        Auth.login(vm.user)
           .then(function () {
             $location.path('/board');
           })

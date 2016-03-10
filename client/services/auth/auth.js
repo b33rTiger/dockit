@@ -19,7 +19,6 @@ angular.module('dockit')
     }
 
     this.signup = function (user) {
-      console.log('made it to signup service');
       var deferred = $q.defer();
       $http.post('/api/users', user)
         .then(function (res) {
