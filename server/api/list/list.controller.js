@@ -10,30 +10,41 @@ var errorHandler = require('../../error/error.handling');
 
 exports.showLists = function (req, res) {
   var boardId = req.params.boardId;
+  var boardName;
+  Board.find({_id: boardId})
+  .exec(function (error, board) {
+    if (error) {
+      errorHandler.handle(res, error, 404);
+    } else if (board) {
+      boardName = board.name;
+      console.log(board);
+      console.log(board.name);
+    }
+  })
   List.find({ _board: boardId})
   .populate('todos')
   .exec(function (error, lists) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (lists) {
+      lists.boardName = boardName;
       res.json(lists)
     }
   })
 }
 
 exports.create = function (req, res) {
-  var boardId = req.body.boardId;
+  var boardId = req.params.boardId;
   var list = new List ({
     name: req.body.name,
-    description: req.body.description,
     _board: boardId
   });
 
-  list.save(function (error, list) {
+  list.save(function (error, lists) {
     if (error) {
       errorHandler.handle(res, error, 500);
-    } else if (list) {
-      res.json(list)
+    } else if (lists) {
+      res.json(lists)
     }
   })
 }
