@@ -25,7 +25,6 @@ exports.create = function (req, res) {
   var owner = req.user._id;
   var board = new Board ({
     name: req.body.name,
-    description: req.body.description,
     _owner: owner
   });
 

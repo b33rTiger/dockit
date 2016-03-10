@@ -9,13 +9,18 @@ var Todo = require('../todo/todo.model');
 var errorHandler = require('../../error/error.handling');
 
 exports.showLists = function (req, res) {
+  console.log('made it to show list controller server side');
   var loggedUserId = req.user._id;
-  var boardId = req.query.boardId;
+  console.log('loggedUserId', loggedUserId);
+  var boardId = req.params.boardId;
+  console.log('req.params.boardId', boardId);
   User.findOne({ _id: loggedUserId})
     .exec(function (error, foundUser) {
       if (error) {
+        console.log(error);
         errorHandler.handle(res, error, 404);
       } else if (foundUser) {
+        console.log(foundUser);
         List.find({ _board: boardId})
         .populate('todos')
         .exec(function (error, lists) {

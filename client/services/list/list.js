@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('dockit')
-  .service('BoardService', function ($rootScope, $q, $http) {
+  .service('ListService', function ($rootScope, $q, $http) {
     var service = {};
 
-    service.showBoards = function () {
+    service.showLists = function (id) {
+      console.log('made it to list service');
+      console.log(id);
       var deferred = $q.defer();
-      $http.get('/api/boards')
-        .success(function (returnedBoards) {
-          deferred.resolve(returnedBoards);
+      $http.get('/api/lists/' + id)
+        .success(function (returnedLists) {
+          deferred.resolve(returnedLists);
         })
         .error(function (error) {
           deferred.reject('Error: ', error);
@@ -16,7 +18,7 @@ angular.module('dockit')
       return deferred.promise;
     }
 
-    service.createBoard = function (formData) {
+    service.createList = function (formData) {
       var deferred = $q.defer();
       $http.post('/api/boards/create', formData)
         .success(function (data) {
@@ -29,7 +31,7 @@ angular.module('dockit')
       return deferred.promise;
     }
 
-    service.updateBoard = function (id, formData) {
+    service.updateList = function (id, formData) {
       var deferred = $q.defer();
       $http.post('/api/board/update/' + id, formData)
         .sucess(function (updatedBoard) {
@@ -41,7 +43,7 @@ angular.module('dockit')
       return deferred.promise;
     }
 
-    service.deleteBoard = function (id) {
+    service.deleteList = function (id) {
       var deferred = $q.defer();
       $http.post('/api/board/delete/' + id)
         .success(function (deletedBoard) {

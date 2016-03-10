@@ -12,7 +12,40 @@
   margin: auto;
 }
 
+// .boards {
+//   vertical-align: middle;
+//   margin: auto;
+// }
+
 .boards {
-  vertical-align: middle;
-  margin: auto;
+  display: inline-block;
+  line-height: 24px;
+  margin: 3px 0 0;
+  font-size: 1pc;
+  font-weight: 700;
+  color: #033213;
+}
+
+.box {
+  float: left;
+  width: auto;
+  height: auto;
+  margin: 1em;
+  background-color: black;
+  padding: 1em;
+}
+
+.board-list-name {
+  background-size: cover;
+  background-position: center center;
+  border-radius: 3px;
+  color: #033213;
+  display: block;
+  font-size: 1pc;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0 1pc 0 0;
+  min-height: 18px;
+  padding: 8px 9pt;
+  position: relative;
 }

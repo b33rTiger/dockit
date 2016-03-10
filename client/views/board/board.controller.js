@@ -8,14 +8,25 @@ angular.module('dockit')
     vm.boards = [];
 
     angular.extend(vm, {
-      name: 'BoardCtrl'
+
+      name: 'BoardCtrl',
+
     });
 
-    vm.showBoards = function () {
-      BoardService.showBoards()
-      .then(function (foundBoards) {
-        vm.boards = foundBoards;
-      })
-    }
+      vm.showBoards = function () {
+        BoardService.showBoards()
+        .then(function (foundBoards) {
+          vm.boards = foundBoards;
+        });
+      }
+
+      vm.create = function () {
+        BoardService.createBoard(vm.formData)
+        .then(function (foundBoards) {
+          vm.boards.push(foundBoards);
+          vm.formData = {};
+          $location.path('/board');
+        });
+      }
 
   }]);

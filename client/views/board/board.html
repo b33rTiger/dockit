@@ -1,25 +1,25 @@
 <div class="container board-home">
   <div class="row">
-    <div class="col-xs-3 boards-page">
-      <div ng-init='vm.show' ng-repeat='board in boards'>
-        <a class="box" href="#/lists?boardId={{board._id}}&boardName={{board.name}}">
+    <div class="col-xs-12 boards-page">
+    <h5 class="boards">My Boards</h5>
+      <div ng-init="vm.showBoards()">
+        <div ng-repeat="board in vm.boards">
+        <a class="box" href="/list/{{board._id}}">
           <div class="open-board">
-            <span class="fade"></span>
               <span class="board-list-name">{{board.name}}</span>
-            </span>
           </div>
         </a>
+        </div>
       </div>
     </div>
   </div>
-  <div>
   <h5 class="boards">Create A New Board</h5>
   <div class="row">
-    <div class="col-xs-3 make-board">
-      <form role="form" ng-submit="vm.createBoard()">
+    <div class="col-xs-12 make-board">
+      <form role="form" ng-submit="vm.create()">
         <div class="row">
           <div class="input-group">
-            <input type="text" ng-model="board.formData.name" placeholder="Board Name" class="form-control">
+            <input type="text" ng-model="vm.formData.name" placeholder="Board Name" class="form-control">
             <span class="input-group-btn">
               <input type="submit" class="btn btn-primary" value="Create">
             </span>
@@ -27,6 +27,5 @@
         </div>
       </form>
     </div>
-  </div>
   </div>
 </div>
