@@ -44,12 +44,12 @@
     <h3 class="boards">Create A Todo List</h3>
     <div class="row">
       <div class="col-md-6.text-center make-list">
-        <form role="form" ng-submit="lists.createList()">
+        <form role="form" ng-submit="vm.create()">
           <div class="row">
             <div class="input-group">
-              <input type="text" ng-model="lists.formData.name" placeholder="Todo List Name" class="form-control">
+              <input type="text" ng-model="vm.formData.name" placeholder="Todo List Name" class="form-control">
               <span class="input-group-btn">
-                <input type="submit" class="btn btn-primary" value="Add">
+                <input type="submit" class="btn btn-primary" value="Create">
               </span>
             </div>
           </div>
