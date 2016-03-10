@@ -6,6 +6,7 @@ angular.module('dockit')
     var vm = this;
     vm.formData = {};
     vm.lists = [];
+    var boardId = $routeParams.boardId;
 
     angular.extend(vm, {
 
@@ -13,10 +14,8 @@ angular.module('dockit')
 
     });
 
-      vm.showLists = function (id) {
-        console.log('made it to list controller client');
-        console.log(id);
-        ListService.showLists(id)
+      vm.showLists = function () {
+        ListService.showLists(boardId)
         .then(function (foundLists) {
           vm.lists = foundLists;
         });

@@ -5,8 +5,6 @@ angular.module('dockit')
     var service = {};
 
     service.showLists = function (id) {
-      console.log('made it to list service');
-      console.log(id);
       var deferred = $q.defer();
       $http.get('/api/lists/' + id)
         .success(function (returnedLists) {
