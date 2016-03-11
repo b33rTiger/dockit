@@ -11,14 +11,12 @@ var errorHandler = require('../../error/error.handling');
 exports.showLists = function (req, res) {
   var boardId = req.params.boardId;
   var boardName;
-  Board.find({_id: boardId})
+  Board.findOne({_id: boardId})
   .exec(function (error, board) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (board) {
       boardName = board.name;
-      console.log(board);
-      console.log(board.name);
     }
   })
   List.find({ _board: boardId})
@@ -27,7 +25,8 @@ exports.showLists = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (lists) {
-      lists.boardName = boardName;
+      lists.push({"boardName": boardName})
+      console.log(lists);
       res.json(lists)
     }
   })
