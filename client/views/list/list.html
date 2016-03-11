@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
     <div ng-init="vm.showLists()">
-      <h1 class="boards">{{lists.boardName}}</h1>
+      <h1 class="boards">{{vm.lists.name}}</h1>
     </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
     <h3 class="boards">Create A Todo List</h3>
     <div class="row">
       <div class="col-md-6.text-center make-list">
-        <form role="form" ng-submit="vm.create()">
+        <form role="form" ng-submit="vm.create(vm.lists._id)">
           <div class="row">
             <div class="input-group">
               <input type="text" ng-model="vm.formData.name" placeholder="Todo List Name" class="form-control">

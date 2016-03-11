@@ -10,39 +10,32 @@ var errorHandler = require('../../error/error.handling');
 
 exports.showLists = function (req, res) {
   var boardId = req.params.boardId;
-  var boardName;
   Board.findOne({_id: boardId})
-  .exec(function (error, board) {
+  .populate('_lists')
+  .exec(function (error, foundLists) {
     if (error) {
       errorHandler.handle(res, error, 404);
-    } else if (board) {
-      boardName = board.name;
-    }
-  })
-  List.find({ _board: boardId})
-  .populate('todos')
-  .exec(function (error, lists) {
-    if (error) {
-      errorHandler.handle(res, error, 404);
-    } else if (lists) {
-      lists.push({"boardName": boardName})
-      console.log(lists);
-      res.json(lists)
+    } else if (foundLists) {
+      console.log(foundLists);
+      res.json(foundLists);
     }
   })
 }
 
 exports.create = function (req, res) {
-  var boardId = req.params.boardId;
+  console.log(req.body.boardId);
+  var boardId = req.body.boardId;
+  var id = mongoose.Types.ObjectId(boardId);
   var list = new List ({
     name: req.body.name,
-    _board: boardId
+    _board: id
   });
 
   list.save(function (error, lists) {
     if (error) {
       errorHandler.handle(res, error, 500);
     } else if (lists) {
+      console.log(lists);
       res.json(lists)
     }
   })
