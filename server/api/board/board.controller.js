@@ -16,7 +16,6 @@ exports.showBoards = function (req, res) {
       if (error) {
         errorHandler.handle(res, error, 404);
       } else if (foundUser) {
-        console.log(foundUser);
         res.json(foundUser._boards);
       }
     });

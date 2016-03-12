@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var boardSchema = new Schema({
   name: { type: String, required: true },
-  _lists: [{ type: mongoose.Schema.Types.ObjectId, ref: 'List'}],
+  _lists: [{ type: Schema.Types.ObjectId, ref: 'List'}],
   description: String,
   _owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 })

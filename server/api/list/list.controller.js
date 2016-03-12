@@ -23,20 +23,28 @@ exports.showLists = function (req, res) {
 }
 
 exports.create = function (req, res) {
-  console.log(req.body.boardId);
   var boardId = req.body.boardId;
-  var id = mongoose.Types.ObjectId(boardId);
+  console.log(boardId);
+  // var id = mongoose.Types.ObjectId(boardId);
   var list = new List ({
     name: req.body.name,
-    _board: id
+    _board: boardId
   });
 
   list.save(function (error, lists) {
     if (error) {
-      errorHandler.handle(res, error, 500);
-    } else if (lists) {
-      console.log(lists);
-      res.json(lists)
+      errorHandler.handle(res, error, 404);
+    } else {
+      Board.findOne({_id: boardId}, function (error, board) {
+        if (error) {
+          errorHandler.handle(res, error, 404);
+        } else {
+          board._lists.push(lists._id);
+          board.save();
+          console.log(lists);
+          res.json(lists)
+        }
+      });
     }
   })
 }

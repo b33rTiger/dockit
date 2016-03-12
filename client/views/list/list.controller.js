@@ -25,6 +25,7 @@ angular.module('dockit')
         vm.formData.boardId = id;
         ListService.createList(vm.formData)
         .then(function (foundLists) {
+          vm.lists.push(foundLists);
           vm.formData = {};
         });
       }

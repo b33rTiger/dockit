@@ -7,15 +7,15 @@
     </div>
   </div>
   <div class="row">
-    <div ui-sortable ng-model='lists' ng-repeat='list in lists'>
+    <div ng-repeat='list in vm.lists._lists'>
       <div class="col-md-3 lists">
         <div class='input-group' style="cursor: move">
             <div class="list-name" style='padding-right: 1em'>{{list.name}}
-              <span aria-hidden='true'>
+<!--               <span aria-hidden='true'>
                 <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='lists.deleteList(list._id)'></button>
-              </span>
+              </span> -->
             </div>
-          <div ng-controller='TodoController as todos'>
+<!--           <div ng-controller='TodoController as todos'>
             <div ng-init='todos.getTodos(list._id)'>
               <div class="todo-items row" ng-repeat='item in todos.todos'>
                 <div class="col-xs-6 col-xs-offset-2">{{item.item}}</div>
@@ -34,7 +34,7 @@
                 </div>
               </form>
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
