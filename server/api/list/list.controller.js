@@ -16,7 +16,6 @@ exports.showLists = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (foundLists) {
-      console.log(foundLists);
       res.json(foundLists);
     }
   })
@@ -24,8 +23,6 @@ exports.showLists = function (req, res) {
 
 exports.create = function (req, res) {
   var boardId = req.body.boardId;
-  console.log(boardId);
-  // var id = mongoose.Types.ObjectId(boardId);
   var list = new List ({
     name: req.body.name,
     _board: boardId
@@ -41,7 +38,6 @@ exports.create = function (req, res) {
         } else {
           board._lists.push(lists._id);
           board.save();
-          console.log(lists);
           res.json(lists)
         }
       });
