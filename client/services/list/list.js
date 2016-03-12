@@ -18,7 +18,7 @@ angular.module('dockit')
 
     service.createList = function (formData) {
       var deferred = $q.defer();
-      $http.post('/api/boards/create', formData)
+      $http.post('/api/lists/create/', formData)
         .success(function (data) {
           formData = {};
           deferred.resolve(data);

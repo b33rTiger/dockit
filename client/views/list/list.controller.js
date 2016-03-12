@@ -21,12 +21,12 @@ angular.module('dockit')
         });
       }
 
-      vm.create = function () {
-        BoardService.createBoard(vm.formData)
-        .then(function (foundBoards) {
-          vm.boards.push(foundBoards);
+      vm.create = function (id) {
+        vm.formData.boardId = id;
+        ListService.createList(vm.formData)
+        .then(function (foundLists) {
+          vm.lists.push(foundLists);
           vm.formData = {};
-          $location.path('/board');
         });
       }
 
