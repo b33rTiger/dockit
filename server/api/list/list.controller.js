@@ -37,12 +37,27 @@ exports.create = function (req, res) {
           errorHandler.handle(res, error, 404);
         } else {
           board._lists.push(lists._id);
-          board.save();
-          res.json(lists)
+          board.save(function (error, foundLists) {
+            if (error) {
+              eventHandler.handle(res, error, 404);
+            } else if (foundLists) {
+              Board.findOne({_id: boardId})
+              .populate('_lists')
+              .exec(function (error, foundLists) {
+                if (error) {
+                  errorHandler.handle(res, error, 404);
+                } else if (foundLists) {
+                  console.log(foundLists);
+                  res.json(foundLists);
+                }
+              })
+            }
+          });
         }
       });
     }
   })
+
 }
 
 exports.edit = function (req, res) {

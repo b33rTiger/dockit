@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row">
-    <div ng-repeat='list in vm.lists._lists'>
+    <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
       <div class="col-md-3 lists">
         <div>
             <div class="list-name" style='padding-right: 1em'>{{list.name}}
