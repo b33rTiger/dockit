@@ -3,9 +3,9 @@
 angular.module('dockit')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/board', {
-        templateUrl: 'views/board/board.html',
-        controller: 'BoardCtrl',
+      .when('/list/:boardId', {
+        templateUrl: 'views/list/list.html',
+        controller: 'ListCtrl',
         controllerAs: 'vm'
       })
       .otherwise({

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <div ng-init="vm.showLists()">
+      <h1 class="boards">{{vm.lists.name}}</h1>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
+      <div class="col-md-3 lists">
+        <div>
+            <div class="list-name" style='padding-right: 1em'>{{list.name}}
+<!--               <span aria-hidden='true'>
+                <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='lists.deleteList(list._id)'></button>
+              </span> -->
+            </div>
+<!--           <div ng-controller='TodoController as todos'>
+            <div ng-init='todos.getTodos(list._id)'>
+              <div class="todo-items row" ng-repeat='item in todos.todos'>
+                <div class="col-xs-6 col-xs-offset-2">{{item.item}}</div>
+                <div class="col-xs-2" aria-hidden='true'>
+                  <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='todos.deleteTodo(item._id)'></button>
+                </div>
+              </div>
+            </div>
+            <p>
+              <form role='form' ng-submit="todos.createTodo(list._id)">
+                <div class="input_group">
+                  <input type="text" ng-model="todos.formData.item" placeholder="Add Todo" class="form-control">
+                  <span class='input-group-btn'>
+                    <input type="submit" class="btn btn-info glyphicon glyphicon-plus">
+                  </span>
+                </div>
+              </form>
+            </p>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Create a Todo List -->
+  <div class="col-md-3">
+    <h3 class="boards">Create A Todo List</h3>
+    <div class="row">
+      <div class="col-md-6.text-center make-list">
+        <form role="form" ng-submit="vm.create(vm.lists._id)">
+          <div class="row">
+            <div class="input-group">
+              <input type="text" ng-model="vm.formData.name" placeholder="Todo List Name" class="form-control">
+              <span class="input-group-btn">
+                <input type="submit" class="btn btn-primary" value="Create">
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
