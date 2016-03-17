@@ -31,7 +31,7 @@ angular.module('dockit')
 
     service.updateList = function (id, formData) {
       var deferred = $q.defer();
-      $http.post('/api/board/update/' + id, formData)
+      $http.post('/api/lists/update/' + id, formData)
         .sucess(function (updatedBoard) {
           deferred.resolve(updatedBoard);
         })
@@ -41,11 +41,11 @@ angular.module('dockit')
       return deferred.promise;
     }
 
-    service.deleteList = function (id) {
+    service.deleteList = function (data) {
       var deferred = $q.defer();
-      $http.post('/api/board/delete/' + id)
-        .success(function (deletedBoard) {
-          deferred.resolve(deletedBoard);
+      $http.post('/api/lists/delete/', data)
+        .success(function (deletedList) {
+          deferred.resolve(deletedList);
         })
         .error(function (error) {
           deferred.reject('Error: ', error);

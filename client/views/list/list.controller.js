@@ -25,9 +25,22 @@ angular.module('dockit')
         vm.formData.boardId = id;
         ListService.createList(vm.formData)
         .then(function (foundLists) {
-          vm.lists.push(foundLists);
+          vm.lists = foundLists;
           vm.formData = {};
         });
+      }
+
+      vm.delete = function (data) {
+        ListService.deleteList(data)
+        .then(function (data) {
+          vm.lists = data;
+          // for (var i = 0; i < vm.lists.length; i++) {
+          //   if (vm.lists[i]._id == data._id) {
+          //     vm.lists.splice(i, 1);
+          //     break;
+            // }
+          // }
+        })
       }
 
   }]);
