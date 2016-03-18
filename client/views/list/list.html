@@ -6,7 +6,7 @@
     </div>
     </div>
   </div>
-  <div class="row">
+<!--   <div class="row">
     <div ng-repeat='list in vm.lists._lists'>
     <div class="panel panel-default col-xs-3 lists list-heading">
         <div class="panel-heading">
@@ -20,7 +20,7 @@
 
             <h3 class="panel-title">{{list.name}}</h3>
         </div>
-<!--           <div ng-controller='TodoController as todos'>
+          <div ng-controller='TodoController as todos'>
         <div ng-init='todos.getTodos(list._id)'>
           <div class="todo-items row" ng-repeat='item in todos.todos'>
             <div class="col-xs-6 col-xs-offset-2">{{item.item}}</div>
@@ -39,15 +39,45 @@
             </div>
           </form>
         </p>
-      </div> -->
       </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
+      <uib-accordion close-others="true">
+        <uib-accordion-group is-open="isopen" heading="{{list.name}}">
+          <div ng-controller='TodoCtrl as todos'>
+            <div ng-init='todos.getTodos(list._id)'>
+              <div class="todo-items row" ng-repeat='item in todos.todos'>
+                <div class="col-xs-6 col-xs-offset-2">{{item.item}}</div>
+                <div class="col-xs-2" aria-hidden='true'>
+                  <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='todos.deleteTodo(item._id)'></button>
+                </div>
+              </div>
+            </div>
+            <p>
+              <form role='form' ng-submit="todos.create(list._id)">
+                <div class="input_group">
+                  <input type="text" ng-model="todos.formData.item" placeholder="Add Todo" class="form-control">
+                  <span class='input-group-btn'>
+                    <input type="submit" class="btn btn-info glyphicon glyphicon-plus">
+                  </span>
+                </div>
+              </form>
+            </p>
+          </div>
+        </uib-accordion-group>
+      </uib-accordion>
+    </div>
     </div>
   </div>
 <!-- Create a Todo List -->
   <div class="col-md-3">
     <h3 class="boards">Create A Todo List</h3>
     <div class="row">
-      <div class="col-md-6.text-center make-list">
+      <div class="col-md-3 text-center make-list">
         <form role="form" ng-submit="vm.create(vm.lists._id)">
           <div class="row">
             <div class="input-group">
