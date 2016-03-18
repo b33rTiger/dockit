@@ -5,27 +5,21 @@ var mongoose = require('mongoose');
 
 var Todo = require('./todo.model');
 var List = require('../list/list.model');
+var Board = require('../board/board.model');
 
 var errorHandler = require('../../error/error.handling');
 
-exports.index = function (req, res) {
-  var loggedUserId = req.user._id;
-  var listId = req.query.listId;
-  User.findOne({ _id: loggedUserId})
-  .exec(function (error, foundUser) {
-    if (error) {
-      errorHandler.handle(res, error, 404);
-    } else if (foundUser) {
-      Todo.find({ _list: listId})
-      .exec(function (error, todos) {
-        if (error) {
-          errorHandler.handle(res, error, 404);
-        } else if (todos) {
-          res.json(todos);
-        }
-      })
-    }
-  })
+exports.showTodos = function (req, res) {
+  var listId = req.params.listId;
+    List.find({ _id: listId})
+    .populate('_todos')
+    .exec(function (error, todos) {
+      if (error) {
+        errorHandler.handle(res, error, 404);
+      } else if (todos) {
+        res.json(todos);
+      }
+    })
 }
 
 exports.create = function (req, res) {
@@ -34,18 +28,19 @@ exports.create = function (req, res) {
     name: req.body.name,
     _list: listId
   })
-  todo.save(function (error, todo) {
+  todo.save(function (error, todos) {
     if (error) {
       errorHandler.handle(res, error, 404);
-    } else if (todo) {
-      List.findOne({ _id: listId}, function (error, list) {
+    } else {
+      List.findOne({ _id: listId})
+      .populate('_boards')
+      .exec(function (error, list) {
         if (error) {
           errorHandler.handle(res, error, 404);
-        } else if (list) {
-          var id = mongoose.Types.ObjectId(todo._id);
-          list.todos.push(id)
+        } else {
+          list._todos.push(todos)
           list.save()
-          res.json(todo)
+          res.json(list)
         }
       })
     }

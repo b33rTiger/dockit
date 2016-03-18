@@ -16,7 +16,6 @@ exports.showLists = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (foundLists) {
-      console.log(foundLists);
       res.json(foundLists);
     }
   })
@@ -24,8 +23,6 @@ exports.showLists = function (req, res) {
 
 exports.create = function (req, res) {
   var boardId = req.body.boardId;
-  console.log(boardId);
-  // var id = mongoose.Types.ObjectId(boardId);
   var list = new List ({
     name: req.body.name,
     _board: boardId
@@ -35,14 +32,15 @@ exports.create = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else {
-      Board.findOne({_id: boardId}, function (error, board) {
+      Board.findOne({_id: boardId})
+      .populate('_lists')
+      .exec(function (error, board) {
         if (error) {
           errorHandler.handle(res, error, 404);
         } else {
-          board._lists.push(lists._id);
+          board._lists.push(lists);
           board.save();
-          console.log(lists);
-          res.json(lists)
+          res.json(board)
         }
       });
     }
@@ -67,17 +65,27 @@ exports.edit = function (req, res) {
 }
 
 exports.delete = function (req, res) {
-  var todo = new Todo ({ _list: req.params.listId});
+  var listId = req.body.listId;
+  var boardId = req.body.boardId;
+  var todo = new Todo ({ _list: listId});
   todo.remove(function (error, todo) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (todo) {
-      var list = new List ({ _id: req.params.listId})
+      var list = new List ({ _id: listId})
       list.remove(function (error, list) {
         if (error) {
           errorHandler.handle(res, error, 404);
-        } else if (list) {
-          res.json(list)
+        } else {
+          Board.findOne({_id: boardId})
+          .populate('_lists')
+          .exec(function (error, board) {
+            if (error) {
+              errorHandler.handle(res, error, 404);
+            } else {
+              res.json(board)
+            }
+          });
         }
       })
     }

@@ -1,31 +1,33 @@
 'use strict';
 
 angular.module('dockit')
-  .controller('ListCtrl', ['$location', '$log', '$routeParams', 'ListService', function ($location, $log, $routeParams, ListService) {
+  .controller('TodoCtrl', ['$location', '$log', '$routeParams', 'TodoService', function ($location, $log, $routeParams, TodoService) {
 
     var vm = this;
     vm.formData = {};
     vm.lists = [];
+    vm.todos = [];
     var boardId = $routeParams.boardId;
 
     angular.extend(vm, {
 
-      name: 'ListCtrl',
+      name: 'TodoCtrl',
 
     });
 
-      vm.showLists = function () {
-        ListService.showLists(boardId)
+      vm.showTodos = function () {
+        TodoService.showTodos(listId)
         .then(function (foundLists) {
           vm.lists = foundLists;
         });
       }
 
       vm.create = function (id) {
-        vm.formData.boardId = id;
-        ListService.createList(vm.formData)
-        .then(function (foundLists) {
-          vm.lists = foundLists;
+        vm.formData.listId = id;
+        console.log(formData);
+        TodoService.createTodo(vm.formData)
+        .then(function (foundTodos) {
+          vm.todos = foundTodos;
           vm.formData = {};
         });
       }

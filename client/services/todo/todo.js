@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('dockit')
-  .service('ListService', function ($rootScope, $q, $http) {
+  .service('TodoService', function ($rootScope, $q, $http) {
     var service = {};
 
-    service.showLists = function (id) {
+    service.showTodos = function (id) {
       var deferred = $q.defer();
-      $http.get('/api/lists/' + id)
-        .success(function (returnedLists) {
-          deferred.resolve(returnedLists);
+      $http.get('/api/todos/' + id)
+        .success(function (returnedTodos) {
+          deferred.resolve(returnedTodos);
         })
         .error(function (error) {
           deferred.reject('Error: ', error);
@@ -16,9 +16,9 @@ angular.module('dockit')
       return deferred.promise;
     }
 
-    service.createList = function (formData) {
+    service.createTodo = function (formData) {
       var deferred = $q.defer();
-      $http.post('/api/lists/create/', formData)
+      $http.post('/api/todos/create/', formData)
         .success(function (data) {
           formData = {};
           deferred.resolve(data);
