@@ -33,13 +33,14 @@ exports.create = function (req, res) {
       errorHandler.handle(res, error, 404);
     } else {
       List.findOne({ _id: listId})
-      .populate('_boards')
+      .populate('_todos')
       .exec(function (error, list) {
         if (error) {
           errorHandler.handle(res, error, 404);
         } else {
           list._todos.push(todos)
           list.save()
+          console.log(list);
           res.json(list)
         }
       })
