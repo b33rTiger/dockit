@@ -24,6 +24,7 @@ exports.showTodos = function (req, res) {
 
 exports.create = function (req, res) {
   var listId = req.body.listId;
+  var boardId = req.body.boardId;
   var todo = new Todo({
     name: req.body.name,
     _list: listId
@@ -38,15 +39,51 @@ exports.create = function (req, res) {
         if (error) {
           errorHandler.handle(res, error, 404);
         } else {
-          list._todos.push(todos)
-          list.save()
+          list._todos.push(todos);
+          list.save();
           console.log(list);
-          res.json(list)
+          res.json(list);
         }
       })
     }
   })
 }
+
+// exports.create = function (req, res) {
+//   var listId = req.body.listId;
+//   var boardId = req.body.boardId;
+//   var todo = new Todo({
+//     name: req.body.name,
+//     _list: listId
+//   })
+//   todo.save(function (error, todos) {
+//     if (error) {
+//       errorHandler.handle(res, error, 404);
+//     } else {
+//       Board.findOne({ _id: boardId})
+//       .populate('_lists')
+//       .exec(function (error, board) {
+//         if (error) {
+//           errorHandler.handle(res, error, 404);
+//         } else if (board) {
+//           List.populate(board._lists, {path: '_todos'},
+//             function (error, lists) {
+//               if (error) {
+//                 errorHandler.handle(res, error, 404);
+//               } else if (lists) {
+
+//                 console.log(lists);
+//                 // lists._todos.push(todos);
+//                 // lists.save();
+//                 console.log(board);
+//                 res.json(board);
+//               }
+//             })
+//         }
+//       })
+//     }
+//   })
+// }
 
 exports.edit = function (req, res) {
   var listId = req.body.listId;

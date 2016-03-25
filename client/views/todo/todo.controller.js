@@ -24,10 +24,11 @@ angular.module('dockit')
 
       vm.create = function (id) {
         vm.formData.listId = id;
+        vm.formData.boardId = boardId;
         TodoService.createTodo(vm.formData)
         .then(function (foundTodos) {
           console.log('client side found todos after adding: ', foundTodos);
-          vm.todos = foundTodos;
+          vm.lists = foundTodos;
           vm.formData = {};
         });
       }
