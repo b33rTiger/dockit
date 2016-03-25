@@ -17,6 +17,7 @@ exports.showTodos = function (req, res) {
       if (error) {
         errorHandler.handle(res, error, 404);
       } else if (todos) {
+        console.log('server show todos', todos);
         res.json(todos);
       }
     })

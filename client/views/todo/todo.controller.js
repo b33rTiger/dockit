@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dockit')
-  .controller('TodoCtrl', ['$location', '$log', '$routeParams', 'TodoService', function ($location, $log, $routeParams, TodoService) {
+  .controller('TodoCtrl', ['$location', '$log', '$routeParams', 'TodoService', 'ListService', function ($location, $log, $routeParams, TodoService, ListService) {
 
     var vm = this;
     vm.formData = {};
@@ -16,6 +16,7 @@ angular.module('dockit')
     });
 
       vm.showTodos = function (listId) {
+        console.log(listId);
         TodoService.showTodos(listId)
         .then(function (foundTodos) {
           vm.todos = foundTodos;
