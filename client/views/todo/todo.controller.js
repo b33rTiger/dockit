@@ -7,7 +7,6 @@ angular.module('dockit')
     vm.formData = {};
     vm.lists = [];
     vm.todos = [];
-    var boardId = $routeParams.boardId;
 
     angular.extend(vm, {
 
@@ -34,9 +33,9 @@ angular.module('dockit')
       }
 
       vm.delete = function (data) {
-        ListService.deleteList(data)
+        TodoService.deleteTodo(data)
         .then(function (data) {
-          vm.lists = data;
+          vm.todos = data;
           // for (var i = 0; i < vm.lists.length; i++) {
           //   if (vm.lists[i]._id == data._id) {
           //     vm.lists.splice(i, 1);
