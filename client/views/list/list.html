@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-    <div ng-init="vm.showLists()">
+    <div>
       <h1 class="boards">{{vm.lists.name}}</h1>
     </div>
     </div>
@@ -11,27 +11,21 @@
     <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
       <uib-accordion close-others="true">
         <uib-accordion-group is-open="isopen" heading="{{list.name}}">
-          <div>
-            <div>
+          <div ng-controller="TodoCtrl as todos" ng-init="vm.showTodos(vm.list._id)">
+            <div ng-model="todos" ng-repeat="todos in vm.todos">
               <div class="todo-items row">
-                <div class="col-xs-6" ng-repeat='todos in list._todos'>{{todos.name}}</div>
-<!--                 <div class="col-xs-2" aria-hidden='true'>
-                  <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='todos.deleteTodo(item._id)'></button>
-                </div> -->
+                <div class="col-xs-6">{{todos.name}}</div>
+                <p>
+                <form role='form' ng-submit="vm.create(vm.list._id)">
+                  <div class="input-group">
+                    <input type="text" ng-model="vm.formData.name" placeholder="Add Todo" class="form-control">
+                  </div>
+                </form>
+                </p>
               </div>
             </div>
-            <p>
-            <div ng-controller="TodoCtrl as todos">
-              <form role='form' ng-submit="todos.create(list._id)">
-                <div class="input_group">
-                  <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
-<!--                   <span class='input-group-btn'>
-                    <input type="submit" class="btn btn-info glyphicon glyphicon-plus">
-                  </span> -->
-                </div>
-              </form>
+            <div>
             </div>
-            </p>
           </div>
         </uib-accordion-group>
       </uib-accordion>

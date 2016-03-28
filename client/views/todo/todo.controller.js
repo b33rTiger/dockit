@@ -16,20 +16,19 @@ angular.module('dockit')
     });
 
       vm.showTodos = function (listId) {
-        console.log(listId);
+        console.log('made it to todo ctrl client side');
         TodoService.showTodos(listId)
         .then(function (foundTodos) {
           vm.todos = foundTodos;
         });
       }
 
-      vm.create = function (id) {
-        vm.formData.listId = id;
-        vm.formData.boardId = boardId;
+      vm.create = function (listId) {
+        vm.formData.listId = ListId;
         TodoService.createTodo(vm.formData)
         .then(function (foundTodos) {
           console.log('client side found todos after adding: ', foundTodos);
-          vm.lists = foundTodos;
+          vm.todos = foundTodos;
           vm.formData = {};
         });
       }
