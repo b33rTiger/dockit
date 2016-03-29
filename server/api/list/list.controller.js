@@ -8,6 +8,26 @@ var List = require('./list.model');
 var Todo = require('../todo/todo.model');
 var errorHandler = require('../../error/error.handling');
 
+// exports.showLists = function (req, res) {
+//   var boardId = req.params.boardId;
+//   Board.findOne({_id: boardId})
+//   .populate('_lists')
+//   .exec(function (error, foundLists) {
+//     if (error) {
+//       errorHandler.handle(res, error, 404);
+//     } else if (foundLists) {
+//       List.populate(foundLists._lists, {path: '_todos'},
+//         function(error, foundTodos) {
+//           if (error) {
+//             errorHandler.handle(res, error, 404);
+//           } else {
+//             res.json(foundLists);
+//           }
+//         })
+//     }
+//   })
+// }
+
 exports.showLists = function (req, res) {
   var boardId = req.params.boardId;
   Board.findOne({_id: boardId})
@@ -16,14 +36,7 @@ exports.showLists = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (foundLists) {
-      List.populate(foundLists._lists, {path: '_todos'},
-        function(error, foundTodos) {
-          if (error) {
-            errorHandler.handle(res, error, 404);
-          } else {
-            res.json(foundLists);
-          }
-        })
+      res.json(foundLists);
     }
   })
 }
