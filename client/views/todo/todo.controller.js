@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('dockit')
-  .controller('TodoCtrl', ['$location', '$log', '$routeParams', 'TodoService', function ($location, $log, $routeParams, TodoService) {
+  .controller('TodoCtrl', ['$location', '$log', '$routeParams', 'TodoService', 'ListService', function ($location, $log, $routeParams, TodoService, ListService) {
 
     var vm = this;
     vm.formData = {};
     vm.lists = [];
     vm.todos = [];
-    var boardId = $routeParams.boardId;
 
     angular.extend(vm, {
 
@@ -15,27 +14,28 @@ angular.module('dockit')
 
     });
 
-      vm.showTodos = function () {
+      vm.showTodos = function (listId) {
         TodoService.showTodos(listId)
-        .then(function (foundLists) {
-          vm.lists = foundLists;
+        .then(function (foundTodos) {
+          console.log('controller foundTodos', foundTodos);
+          vm.todos = foundTodos;
         });
       }
 
-      vm.create = function (id) {
-        vm.formData.listId = id;
-        console.log(formData);
+      vm.create = function (listId) {
+        vm.formData.listId = ListId;
         TodoService.createTodo(vm.formData)
         .then(function (foundTodos) {
+          console.log('client side found todos after adding: ', foundTodos);
           vm.todos = foundTodos;
           vm.formData = {};
         });
       }
 
       vm.delete = function (data) {
-        ListService.deleteList(data)
+        TodoService.deleteTodo(data)
         .then(function (data) {
-          vm.lists = data;
+          vm.todos = data;
           // for (var i = 0; i < vm.lists.length; i++) {
           //   if (vm.lists[i]._id == data._id) {
           //     vm.lists.splice(i, 1);
