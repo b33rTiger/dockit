@@ -15,9 +15,9 @@ angular.module('dockit')
     });
 
       vm.showTodos = function (listId) {
-        console.log('made it to todo ctrl client side');
         TodoService.showTodos(listId)
         .then(function (foundTodos) {
+          console.log('controller foundTodos', foundTodos);
           vm.todos = foundTodos;
         });
       }

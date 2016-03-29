@@ -11,17 +11,19 @@
     <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
       <uib-accordion close-others="true">
         <uib-accordion-group is-open="isopen" heading="{{list.name}}">
-          <div ng-controller="TodoCtrl as todos" ng-init="vm.showTodos(vm.list._id)">
-            <div ng-model="todos" ng-repeat="todos in vm.todos">
-              <div class="todo-items row">
-                <div class="col-xs-6">{{todos.name}}</div>
-                <p>
-                <form role='form' ng-submit="vm.create(vm.list._id)">
-                  <div class="input-group">
-                    <input type="text" ng-model="vm.formData.name" placeholder="Add Todo" class="form-control">
-                  </div>
-                </form>
-                </p>
+          <div ng-controller="TodoCtrl as todos">
+            <div ng-init="todos.showTodos(list._id)">
+              <div ng-repeat="todos in vm.todos._todos">
+                <div class="todo-items row">
+                  <div class="col-xs-6">{{todos.name}}</div>
+                  <p>
+                  <form role='form' ng-submit="todos.create(list._id)">
+                    <div class="input-group">
+                      <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
+                    </div>
+                  </form>
+                  </p>
+                </div>
               </div>
             </div>
             <div>

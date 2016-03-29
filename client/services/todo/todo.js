@@ -8,6 +8,7 @@ angular.module('dockit')
       var deferred = $q.defer();
       $http.get('/api/todos/' + id)
         .success(function (returnedTodos) {
+          console.log('service returnedTodos', returnedTodos);
           deferred.resolve(returnedTodos);
         })
         .error(function (error) {

@@ -11,7 +11,8 @@ var errorHandler = require('../../error/error.handling');
 
 exports.showTodos = function (req, res) {
   var listId = req.params.listId;
-    List.find({ _id: listId})
+  console.log('server side listId', listId);
+    List.findById({ _id: listId})
     .populate('_todos')
     .exec(function (error, todos) {
       if (error) {

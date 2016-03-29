@@ -11,6 +11,7 @@ angular.module('dockit')
 
         ListService.showLists(boardId)
         .then(function (foundLists) {
+          console.log('clien show lists', foundLists);
           vm.lists = foundLists;
         });
 
