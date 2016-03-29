@@ -17,16 +17,14 @@ angular.module('dockit')
       vm.showTodos = function (listId) {
         TodoService.showTodos(listId)
         .then(function (foundTodos) {
-          console.log('controller foundTodos', foundTodos);
           vm.todos = foundTodos;
         });
       }
 
       vm.create = function (listId) {
-        vm.formData.listId = ListId;
+        vm.formData.listId = listId;
         TodoService.createTodo(vm.formData)
         .then(function (foundTodos) {
-          console.log('client side found todos after adding: ', foundTodos);
           vm.todos = foundTodos;
           vm.formData = {};
         });

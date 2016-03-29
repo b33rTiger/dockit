@@ -11,22 +11,19 @@ var errorHandler = require('../../error/error.handling');
 
 exports.showTodos = function (req, res) {
   var listId = req.params.listId;
-  console.log('server side listId', listId);
     List.findById({ _id: listId})
     .populate('_todos')
     .exec(function (error, todos) {
       if (error) {
         errorHandler.handle(res, error, 404);
       } else if (todos) {
-        console.log('server show todos', todos);
-        res.json(todos);
+        res.json(todos._todos);
       }
     })
 }
 
 exports.create = function (req, res) {
   var listId = req.body.listId;
-  var boardId = req.body.boardId;
   var todo = new Todo({
     name: req.body.name,
     _list: listId
@@ -35,7 +32,7 @@ exports.create = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else {
-      List.findOne({ _id: listId})
+      List.findById({ _id: listId})
       .populate('_todos')
       .exec(function (error, list) {
         if (error) {
@@ -43,49 +40,12 @@ exports.create = function (req, res) {
         } else {
           list._todos.push(todos);
           list.save();
-          console.log(list);
-          res.json(list);
+          res.json(list._todos);
         }
       })
     }
   })
 }
-
-// exports.create = function (req, res) {
-//   var listId = req.body.listId;
-//   var boardId = req.body.boardId;
-//   var todo = new Todo({
-//     name: req.body.name,
-//     _list: listId
-//   })
-//   todo.save(function (error, todos) {
-//     if (error) {
-//       errorHandler.handle(res, error, 404);
-//     } else {
-//       Board.findOne({ _id: boardId})
-//       .populate('_lists')
-//       .exec(function (error, board) {
-//         if (error) {
-//           errorHandler.handle(res, error, 404);
-//         } else if (board) {
-//           List.populate(board._lists, {path: '_todos'},
-//             function (error, lists) {
-//               if (error) {
-//                 errorHandler.handle(res, error, 404);
-//               } else if (lists) {
-
-//                 console.log(lists);
-//                 // lists._todos.push(todos);
-//                 // lists.save();
-//                 console.log(board);
-//                 res.json(board);
-//               }
-//             })
-//         }
-//       })
-//     }
-//   })
-// }
 
 exports.edit = function (req, res) {
   var listId = req.body.listId;
