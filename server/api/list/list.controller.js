@@ -41,38 +41,6 @@ exports.showLists = function (req, res) {
   })
 }
 
-// exports.create = function (req, res) {
-//   var boardId = req.body.boardId;
-//   var list = new List ({
-//     name: req.body.name,
-//     _board: boardId
-//   });
-
-//   list.save(function (error, lists) {
-//     if (error) {
-//       errorHandler.handle(res, error, 404);
-//     } else {
-//       Board.findOne({_id: boardId})
-//       .populate('_lists')
-//       .exec(function (error, board) {
-//         if (error) {
-//           errorHandler.handle(res, error, 404);
-//         } else if (board) {
-//           board._lists.push(lists);
-//           board.save();
-//           List.populate(board._lists, {path: '_todos'},
-//             function (error, foundLists) {
-//               if (error) {
-//                 errorHandler.handle(res, error, 404);
-//               } else {
-//                 res.json(board);
-//               }
-//             })
-//         }
-//       })
-//     }
-//   })
-// }
 
 exports.create = function (req, res) {
   var boardId = req.body.boardId;

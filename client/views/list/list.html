@@ -14,18 +14,18 @@
           <div ng-controller="TodoCtrl as todos">
             <div ng-init="todos.showTodos(list._id)">
               <div class="row" ng-repeat="name in todos.todos">
-                <div class="todo-items col-xs-6">{{name._todos.name}}</div>
-                <p>
-<!--                   <form role='form' ng-submit="todos.create(list._id)">
-                  <div class="input-group">
-                    <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
-                  </div>
-                </form> -->
-                </p>
+                <div class="todo-items col-xs-6">{{name.name}}</div>
               </div>
             </div>
             <div>
             </div>
+              <p>
+              <form role='form' ng-submit="todos.create(list._id)">
+              <div class="input-group">
+                <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
+              </div>
+              </form>
+              </p>
           </div>
         </uib-accordion-group>
       </uib-accordion>
