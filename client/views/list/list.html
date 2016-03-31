@@ -13,11 +13,11 @@
         <uib-accordion-group is-open="isopen">
           <uib-accordion-heading>
             {{list.name}}
-            <div class="dropdown-menu-right btn-group list-options" uib-dropdown>
+            <div class="dropdown-menu-left btn-group list-options" uib-dropdown>
               <button type="button" class="glyphicon glyphicon-menu-down" uib-dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="$event.stopPropagation();"></button>
-              <ul class="dropdown-menu" role="menu">
-                <li>Rename List</li>
-                <li>Delete List</li>
+              <ul class="dropdown-menu list-dropdown">
+                <li><a href="#">Rename List</a></li>
+                <li><a href="#">Delete List</a></li>
               </ul>
             </div>
           </uib-accordion-heading>
