@@ -10,7 +10,17 @@
   <div class="row">
     <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
       <uib-accordion close-others="true">
-        <uib-accordion-group is-open="isopen" heading="{{list.name}}">
+        <uib-accordion-group is-open="isopen">
+          <uib-accordion-heading>
+            {{list.name}}
+            <div class="dropdown-menu-right btn-group list-options" uib-dropdown>
+              <button type="button" class="glyphicon glyphicon-menu-down" uib-dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="$event.stopPropagation();"></button>
+              <ul class="dropdown-menu" role="menu">
+                <li>Rename List</li>
+                <li>Delete List</li>
+              </ul>
+            </div>
+          </uib-accordion-heading>
           <div ng-controller="TodoCtrl as todos">
             <div ng-init="todos.showTodos(list._id)">
               <div ng-repeat="name in todos.todos">
@@ -19,12 +29,12 @@
                 </div>
               </div>
             </div>
-            <p>
-            <form role='form' ng-submit="todos.create(list._id)">
-            <div class="input-group">
-              <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
-            </div>
-            </form>
+            <p class="add-todo">
+              <form role='form' ng-submit="todos.create(list._id)">
+              <div class="input-group">
+                <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
+              </div>
+              </form>
             </p>
           </div>
         </uib-accordion-group>
