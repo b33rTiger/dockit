@@ -24,13 +24,19 @@
           <div ng-controller="TodoCtrl as todos">
             <div ng-init="todos.showTodos(list._id)">
               <div ng-repeat="name in todos.todos">
-                <div class="todo-items col-xs-4">
-                  {{name.name}}
+                <div class="todo-items col-xs-6" ng-hide="editorEnabled">
+                {{name.name}}
+                <a href="#" ng-click="editorEnabled=!editorEnabled">  edit</a>
+                </div>
+                <div ng-show="editorEnabled">
+                  <input ng-model="name.name">
+                  <a href="#" ng-click="save()">save</a>
+                  <a href="#" ng-click="disableEditor()">cancel</a>
                 </div>
               </div>
             </div>
-            <p class="add-todo">
-              <form role='form' ng-submit="todos.create(list._id)">
+            <p>
+              <form role='form' class="add-todo col-xs-12" ng-submit="todos.create(list._id)">
               <div class="input-group">
                 <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
               </div>
