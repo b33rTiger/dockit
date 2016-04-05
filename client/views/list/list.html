@@ -24,9 +24,9 @@
           <div ng-controller="TodoCtrl as todos">
             <div ng-init="todos.showTodos(list._id)">
               <div ng-repeat="name in todos.todos">
-                <div class="todo-items col-xs-6" ng-hide="editorEnabled">
-                {{name.name}}
-                <a href="#" ng-click="editorEnabled=!editorEnabled">  edit</a>
+                <div class="todo-items col-xs-4" ng-hide="editorEnabled">
+                  {{name.name}}
+                  <a href="#" ng-click="editorEnabled=!editorEnabled">  edit</a>
                 </div>
                 <div ng-show="editorEnabled">
                   <input ng-model="name.name">
