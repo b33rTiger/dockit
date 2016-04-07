@@ -59,6 +59,27 @@
   padding-left: 0;
 }
 
-.todo-items {
-  font-size: 20px;
+// .glyphicon-menu-down {
+//   float: right;
+// }
+
+.panel-group .panel {
+  overflow: visible;
 }
+
+.list-options {
+  float: right;
+}
+
+.list-dropdown {
+  right: 0;
+  left: auto;
+}
+
+.add-todo {
+  margin-top: 1em;
+}
+
+// .todo-items {
+//   margin-bottom: 1em;
+// }

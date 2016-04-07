@@ -10,22 +10,38 @@
   <div class="row">
     <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
       <uib-accordion close-others="true">
-        <uib-accordion-group is-open="isopen" heading="{{list.name}}">
+        <uib-accordion-group is-open="isopen">
+          <uib-accordion-heading>
+            {{list.name}}
+            <div class="dropdown-menu-left btn-group list-options" uib-dropdown>
+              <button type="button" class="glyphicon glyphicon-menu-down" uib-dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="$event.stopPropagation();"></button>
+              <ul class="dropdown-menu list-dropdown">
+                <li><a href="#">Rename List</a></li>
+                <li><a href="#">Delete List</a></li>
+              </ul>
+            </div>
+          </uib-accordion-heading>
           <div ng-controller="TodoCtrl as todos">
             <div ng-init="todos.showTodos(list._id)">
-              <div class="row" ng-repeat="name in todos.todos">
-                <div class="todo-items col-xs-6">{{name.name}}</div>
+              <div ng-repeat="name in todos.todos">
+                <div class="todo-items col-xs-4" ng-hide="editorEnabled">
+                  {{name.name}}
+                  <a href="#" ng-click="editorEnabled=!editorEnabled">  edit</a>
+                </div>
+                <div ng-show="editorEnabled">
+                  <input ng-model="name.name">
+                  <a href="#" ng-click="save()">save</a>
+                  <a href="#" ng-click="disableEditor()">cancel</a>
+                </div>
               </div>
             </div>
-            <div>
-            </div>
-              <p>
-              <form role='form' ng-submit="todos.create(list._id)">
+            <p>
+              <form role='form' class="add-todo col-xs-12" ng-submit="todos.create(list._id)">
               <div class="input-group">
                 <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
               </div>
               </form>
-              </p>
+            </p>
           </div>
         </uib-accordion-group>
       </uib-accordion>
