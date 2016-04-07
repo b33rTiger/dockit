@@ -1,49 +1,57 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-    <div ng-init="vm.showLists()">
+    <div class="col-xs-12">
+    <div>
       <h1 class="boards">{{vm.lists.name}}</h1>
     </div>
     </div>
   </div>
+
   <div class="row">
     <div ng-model="lists" ng-repeat='list in vm.lists._lists'>
-      <div class="col-md-3 lists">
-        <div>
-            <div class="list-name" style='padding-right: 1em'>{{list.name}}
-<!--               <span aria-hidden='true'>
-                <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='lists.deleteList(list._id)'></button>
-              </span> -->
+      <uib-accordion close-others="true">
+        <uib-accordion-group is-open="isopen">
+          <uib-accordion-heading>
+            {{list.name}}
+            <div class="dropdown-menu-left btn-group list-options" uib-dropdown>
+              <button type="button" class="glyphicon glyphicon-menu-down" uib-dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="$event.stopPropagation();"></button>
+              <ul class="dropdown-menu list-dropdown">
+                <li><a href="#">Rename List</a></li>
+                <li><a href="#">Delete List</a></li>
+              </ul>
             </div>
-<!--           <div ng-controller='TodoController as todos'>
-            <div ng-init='todos.getTodos(list._id)'>
-              <div class="todo-items row" ng-repeat='item in todos.todos'>
-                <div class="col-xs-6 col-xs-offset-2">{{item.item}}</div>
-                <div class="col-xs-2" aria-hidden='true'>
-                  <button class="btn btn-danger glyphicon glyphicon-remove-sign" ng-click='todos.deleteTodo(item._id)'></button>
+          </uib-accordion-heading>
+          <div ng-controller="TodoCtrl as todos">
+            <div ng-init="todos.showTodos(list._id)">
+              <div ng-repeat="name in todos.todos">
+                <div class="todo-items col-xs-4" ng-hide="editorEnabled">
+                  {{name.name}}
+                  <a href="#" ng-click="editorEnabled=!editorEnabled">  edit</a>
+                </div>
+                <div ng-show="editorEnabled">
+                  <input ng-model="name.name">
+                  <a href="#" ng-click="save()">save</a>
+                  <a href="#" ng-click="disableEditor()">cancel</a>
                 </div>
               </div>
             </div>
             <p>
-              <form role='form' ng-submit="todos.createTodo(list._id)">
-                <div class="input_group">
-                  <input type="text" ng-model="todos.formData.item" placeholder="Add Todo" class="form-control">
-                  <span class='input-group-btn'>
-                    <input type="submit" class="btn btn-info glyphicon glyphicon-plus">
-                  </span>
-                </div>
+              <form role='form' class="add-todo col-xs-12" ng-submit="todos.create(list._id)">
+              <div class="input-group">
+                <input type="text" ng-model="todos.formData.name" placeholder="Add Todo" class="form-control">
+              </div>
               </form>
             </p>
-          </div> -->
-        </div>
-      </div>
+          </div>
+        </uib-accordion-group>
+      </uib-accordion>
     </div>
   </div>
 <!-- Create a Todo List -->
   <div class="col-md-3">
     <h3 class="boards">Create A Todo List</h3>
     <div class="row">
-      <div class="col-md-6.text-center make-list">
+      <div class="col-md-3 text-center make-list">
         <form role="form" ng-submit="vm.create(vm.lists._id)">
           <div class="row">
             <div class="input-group">

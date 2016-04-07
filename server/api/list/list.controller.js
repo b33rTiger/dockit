@@ -8,6 +8,26 @@ var List = require('./list.model');
 var Todo = require('../todo/todo.model');
 var errorHandler = require('../../error/error.handling');
 
+// exports.showLists = function (req, res) {
+//   var boardId = req.params.boardId;
+//   Board.findOne({_id: boardId})
+//   .populate('_lists')
+//   .exec(function (error, foundLists) {
+//     if (error) {
+//       errorHandler.handle(res, error, 404);
+//     } else if (foundLists) {
+//       List.populate(foundLists._lists, {path: '_todos'},
+//         function(error, foundTodos) {
+//           if (error) {
+//             errorHandler.handle(res, error, 404);
+//           } else {
+//             res.json(foundLists);
+//           }
+//         })
+//     }
+//   })
+// }
+
 exports.showLists = function (req, res) {
   var boardId = req.params.boardId;
   Board.findOne({_id: boardId})
@@ -21,6 +41,7 @@ exports.showLists = function (req, res) {
   })
 }
 
+
 exports.create = function (req, res) {
   var boardId = req.body.boardId;
   var list = new List ({
@@ -32,29 +53,17 @@ exports.create = function (req, res) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else {
-      Board.findOne({_id: boardId}, function (error, board) {
+      Board.findOne({_id: boardId})
+      .populate('_lists')
+      .exec(function (error, board) {
         if (error) {
           errorHandler.handle(res, error, 404);
-        } else {
-          board._lists.push(lists._id);
-          board.save(function (error, foundLists) {
-            if (error) {
-              eventHandler.handle(res, error, 404);
-            } else if (foundLists) {
-              Board.findOne({_id: boardId})
-              .populate('_lists')
-              .exec(function (error, foundLists) {
-                if (error) {
-                  errorHandler.handle(res, error, 404);
-                } else if (foundLists) {
-                  console.log(foundLists);
-                  res.json(foundLists);
-                }
-              })
-            }
-          });
+        } else if (board) {
+          board._lists.push(lists);
+          board.save();
+          res.json(board);
         }
-      });
+      })
     }
   })
 
@@ -78,17 +87,27 @@ exports.edit = function (req, res) {
 }
 
 exports.delete = function (req, res) {
-  var todo = new Todo ({ _list: req.params.listId});
+  var listId = req.body.listId;
+  var boardId = req.body.boardId;
+  var todo = new Todo ({ _list: listId});
   todo.remove(function (error, todo) {
     if (error) {
       errorHandler.handle(res, error, 404);
     } else if (todo) {
-      var list = new List ({ _id: req.params.listId})
+      var list = new List ({ _id: listId})
       list.remove(function (error, list) {
         if (error) {
           errorHandler.handle(res, error, 404);
-        } else if (list) {
-          res.json(list)
+        } else {
+          Board.findOne({_id: boardId})
+          .populate('_lists')
+          .exec(function (error, board) {
+            if (error) {
+              errorHandler.handle(res, error, 404);
+            } else {
+              res.json(board)
+            }
+          });
         }
       })
     }

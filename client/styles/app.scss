@@ -49,3 +49,37 @@
   padding: 8px 9pt;
   position: relative;
 }
+
+.list-heading {
+  margin-right: 1em;
+}
+
+.lists {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+// .glyphicon-menu-down {
+//   float: right;
+// }
+
+.panel-group .panel {
+  overflow: visible;
+}
+
+.list-options {
+  float: right;
+}
+
+.list-dropdown {
+  right: 0;
+  left: auto;
+}
+
+.add-todo {
+  margin-top: 1em;
+}
+
+// .todo-items {
+//   margin-bottom: 1em;
+// }
