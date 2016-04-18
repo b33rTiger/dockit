@@ -1,4 +1,6 @@
-# DockIt [![Wercker](https://img.shields.io/wercker/ci/wercker/docs.svg?maxAge=2592000)]() [![PyPI](https://img.shields.io/pypi/status/Django.svg?style=flat-square)]()
+# DockIt 
+
+[![Wercker](https://img.shields.io/wercker/ci/wercker/docs.svg?maxAge=2592000)]() [![PyPI](https://img.shields.io/pypi/status/Django.svg?style=flat-square)]()
 
 An application for motivating people to exercise by incentivizing them with the two true incentives in life: pride and money.
 
